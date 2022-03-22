@@ -5,6 +5,13 @@ name = "pypi"
 
 [packages]
 django = "*"
+pymongo = "==3.12.3"
+dnspython = "*"
+mongoengine = "*"
+djongo = "*"
+pytz = "*"
+install = "*"
+django-neomodel = "*"
 
 [dev-packages]
 
