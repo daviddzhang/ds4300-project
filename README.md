@@ -8,6 +8,10 @@ Python 3.10 and pipenv (a simple Google search should get you what you need).
 After installing those, you should be able to clone this repo, cd into it, and install all the
 dependencies (including Django) with `pipenv install`.
 
+Once the dependencies have been installed, cd into `/app` so that you're in the same directory as 
+`manage.py`. Run `python manage.py migrate` to run all the migrations so your database gets the
+correct schema. Be sure that MongoDB is running!
+
 After that, you should be able to run a development server with `python3 manage.py runserver`.
 
 ## Running Django commands
