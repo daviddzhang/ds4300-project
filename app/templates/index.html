@@ -4,7 +4,13 @@
     <h1>NEUFriends</h1>
     {% if user.is_authenticated %}
         <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+        <button type="button">
+            <a href="{% url 'logged_out' %}">Sign out</a>
+        </button>
     {% else %}
         <p>Welcome, new user. Please log in.</p>
+        <button type="button">
+            <a href="{% url 'login' %}">Login / Sign up</a>
+        </button>
     {% endif %}
 {% endblock %}
