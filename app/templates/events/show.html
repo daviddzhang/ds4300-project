@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'events/styles.css' %}"/>
     <div class="row">
         <div class="col-mr-auto">
             <h1>{{event.name}}</h1>
         </div>
         <div class="col">
-            
+            <button type="button" class="attendBtn">Attend</button>
         </div>
 
     </div>
