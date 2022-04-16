@@ -17,4 +17,4 @@ def signup(request):
 
 
 def browse_users(request):
-    return render(request, 'browse_users.html')
+    return render(request, 'users/browse_users.html')
