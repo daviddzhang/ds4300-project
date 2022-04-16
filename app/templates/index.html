@@ -1,10 +1,86 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block content %}
-    <h1>NEUFriends</h1>
+    <link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'users/styles.css' %}"/>
+
+
     {% if user.is_authenticated %}
-        <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
+        <h3 style="text-align: center; padding: 25px">Welcome, {{ user.get_username }}. Thanks for logging in.</h3>
     {% else %}
-        <p>Welcome, new user. Please log in.</p>
+        <h3 style="text-align: center; padding: 25px">Welcome, new user. Please log in.</h3>
     {% endif %}
+
+
+    <div class="landing-tables">
+        <table class="table">
+            <tbody>
+            <tr class="table-title">
+                <td> You have 3 events coming up </td>
+            <tr>
+            <tr class="table-title">
+                <td> Picnic at the park <br> 10 January, 2022 at 3PM</td>
+            <tr>
+            <tr class="table-title">
+                <td> Super cool concert! <br> 12 January, 2022 at 5:15PM</td>
+            <tr>
+            <tr class="table-title">
+                <td> Workout session <br> 16 January, 2022 at 6:30AM</td>
+            <tr>
+            </tbody>
+
+        </table>
+        <table class="table">
+            <tbody>
+            <td class="table-title">Friend Recommendations</td>
+            <tr class="table-title">
+                <td> David Zhang
+                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
+
+                </td>
+            <tr>
+            <tr class="table-title">
+                <td > David Zhang
+                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
+
+                </td>
+            <tr>
+            <tr class="table-title">
+                <td > David Zhang
+                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
+
+                </td>
+            <tr>
+            <tr class="table-title">
+                <td > David Zhang
+                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
+
+                </td>
+            <tr>
+
+            </tbody>
+
+        </table>
+        <table class="table">
+            <tbody>
+            <tr class="table-title">
+                <td> You have 3 events coming up </td>
+            <tr>
+            <tr class="table-title">
+                <td> Picnic at the park <br> 10 January, 2022 at 3PM</td>
+            <tr>
+            <tr class="table-title">
+                <td> Super cool concert! <br> 12 January, 2022 at 5:15PM</td>
+            <tr>
+            <tr class="table-title">
+                <td> Workout session <br> 16 January, 2022 at 6:30AM</td>
+            <tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
 {% endblock %}

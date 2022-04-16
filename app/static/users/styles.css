@@ -2,6 +2,8 @@
 .table {
     margin-left: 50px;
     width:70%;
+    border: 1px solid #dee2e6;
+
 
 }
 
@@ -22,4 +24,13 @@
     border: none;
     color: white;
     width:70px;
+}
+
+.landing-tables {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.table-title{
+    text-align: center;
 }
