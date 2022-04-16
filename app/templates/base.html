@@ -1,19 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <title>{% block title %}My amazing site{% endblock %}</title>
+    <meta charset="UTF-8">
+    <title>Browse Users</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-<div id="sidebar">
-    {% block sidebar %}
-    <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/blog/">Blog</a></li>
-    </ul>
-    {% endblock %}
-</div>
+<nav class="navbar">
+    <a class="navbarcontents" href="#">
+        <p style="color:white; font-size: 20px; padding: 10px"> NEU Friends</p>
+    </a>
+
+    <div class="navbarText">
+        <p style="color: white; font-size: 20px; padding: 10px;"> Users</p>
+        <p style="text-align: right; color: white; font-size: 20px; padding: 10px;"> Events</p>
+        <div class="circle">
+            <p style="padding:8.5px">
+                DS
+            </p>
+        </div>
+
+    </div>
+
+</nav>
 
 <div id="content">
     {% block content %}{% endblock %}
