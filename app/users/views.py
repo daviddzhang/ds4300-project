@@ -18,3 +18,6 @@ def signup(request):
 
 def browse_users(request):
     return render(request, 'users/browse_users.html')
+
+def browse_events(request):
+    return render(request, 'events/browse_events.html')
