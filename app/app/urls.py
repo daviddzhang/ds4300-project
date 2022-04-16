@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 import users.views as user_views
+import events.views as event_views
 import app.views as views
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup', user_views.signup, name='signup'),
+    path('events/<int:event_id>/', event_views.show, name='show'),
 ]
