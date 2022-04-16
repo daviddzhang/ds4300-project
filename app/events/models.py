@@ -1,5 +1,6 @@
 from djongo import models
 from users.models import Profile
+from neomodel import StructuredNode, ArrayProperty, StringProperty, DateTimeProperty
 
 RATINGS = (
     ('1', '1'),
@@ -39,3 +40,7 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+class EventNode(StructuredNode):
+    categories = ArrayProperty(StringProperty(), required=True)
+    datetime = DateTimeProperty(required=True)
