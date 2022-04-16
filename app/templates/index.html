@@ -21,13 +21,12 @@
                 <td> You have 3 events coming up </td>
             <tr>
             <tr class="table-title">
-                <td> Picnic at the park <br> 10 January, 2022 at 3PM</td>
-            <tr>
-            <tr class="table-title">
-                <td> Super cool concert! <br> 12 January, 2022 at 5:15PM</td>
-            <tr>
-            <tr class="table-title">
-                <td> Workout session <br> 16 January, 2022 at 6:30AM</td>
+                {% for key,value in upcoming_events.items %}
+                    <tr class="table-title">
+                        <td> {{ key}} <br> {{value }} </td>
+
+                    <tr>
+                {% endfor %}
             <tr>
             </tbody>
 
@@ -35,30 +34,14 @@
         <table class="table">
             <tbody>
             <td class="table-title">Friend Recommendations</td>
-            <tr class="table-title">
-                <td> David Zhang
-                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
+            {% for key,value in friend_reqs.items %}
+                    <tr class="table-title">
+                        <td> {{ key}} {{value }}
+                            <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
 
-                </td>
-            <tr>
-            <tr class="table-title">
-                <td > David Zhang
-                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
-
-                </td>
-            <tr>
-            <tr class="table-title">
-                <td > David Zhang
-                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
-
-                </td>
-            <tr>
-            <tr class="table-title">
-                <td > David Zhang
-                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
-
-                </td>
-            <tr>
+                        </td>
+                    <tr>
+            {% endfor %}
 
             </tbody>
 
@@ -66,16 +49,15 @@
         <table class="table">
             <tbody>
             <tr class="table-title">
-                <td> You have 3 events coming up </td>
+                <td> Event Recommendations </td>
             <tr>
             <tr class="table-title">
-                <td> Picnic at the park <br> 10 January, 2022 at 3PM</td>
-            <tr>
-            <tr class="table-title">
-                <td> Super cool concert! <br> 12 January, 2022 at 5:15PM</td>
-            <tr>
-            <tr class="table-title">
-                <td> Workout session <br> 16 January, 2022 at 6:30AM</td>
+                {% for key,value in event_reqs.items %}
+                    <tr class="table-title">
+                        <td> {{ key}} <br> {{value }} </td>
+
+                    <tr>
+                {% endfor %}
             <tr>
             </tbody>
 
