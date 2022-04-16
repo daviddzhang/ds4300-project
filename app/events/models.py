@@ -30,6 +30,7 @@ class Rating(models.Model):
 class Event(models.Model):
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(max_length=30)
+    attendees = models.ArrayReferenceField(to=Profile, on_delete=models.CASCADE, related_name="attending", default=[])
     categories = models.JSONField()
     description = models.CharField(max_length=100)
     date_created = models.DateTimeField(auto_now_add=True)
