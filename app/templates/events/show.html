@@ -1,5 +1,70 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    {{ event }}
+    <link rel="stylesheet" type="text/css" href="{% static 'events/styles.css' %}"/>
+    <div class="container">
+        <div class="row my-3">
+            <div class="col-auto mr-auto">
+                <h1>{{event.name}}</h1>
+            </div>
+            <form method="post" action="{% url 'attend' event.id %}">
+                {% csrf_token %}
+                <div class="col-auto ml-auto mt-3">
+                    <button type="submit" class="attendBtn" {% if is_user_attending %} disabled {% endif %} >Attend{% if is_user_attending %}ing{% endif %}</button>
+                </div>
+            </form>
+        </div>
+        {% if is_user_attending %}
+            <div class="rating rating2 mb-5">
+                <a href="#5" title="Give 5 stars" data-value="5">★</a>
+                <a href="#4" title="Give 4 stars" data-value="4">★</a>
+                <a href="#3" title="Give 3 stars" data-value="3">★</a>
+                <a href="#2" title="Give 2 stars" data-value="2">★</a>
+                <a href="#1" title="Give 1 star" data-value="1">★</a>
+            </div>
+        {% else %}
+            <p class="text-secondary"> Rate this event after attending! </p>
+        {% endif %}
+        <div class="row">
+            <div class="col-6">
+                <p><b>When:</b> {{ event_time }}</p>
+                <p><b>Where:</b> {{ event_address }}</p>
+                <p><b>Organizer:</b> {{ event_organizer }}</p>
+                <p><b>Categories:</b> {{ event_categories }}</p>
+                <p><b>Attendees:</b></p>
+                {% if event_attendees %}
+                    <div class="row">
+                        {% for attendee in event_attendees %}
+                            <div class="col-2">
+                                <div class="circle">
+                                    <p>{{ attendee }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="ml-4 text-secondary">Be the first attendee!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(".rating a").on('click', function(e){
+        let value = $(this).data('value');
+
+        let csrftoken = Cookies.get('csrftoken');
+       $.ajax({
+          url: "{% url 'vote' event.id %}",
+          headers: {'X-CSRFToken': csrftoken},
+          type: 'POST',
+          data: {'rating': value},
+          success: function (d) {
+
+          }
+       })
+    })
+    </script>
+
 {% endblock %}

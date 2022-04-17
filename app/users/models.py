@@ -8,6 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.CharField(max_length=200, blank=True)
     friends = models.ArrayReferenceField(to="Profile", on_delete=models.CASCADE)
+    attending_events = models.ArrayReferenceField(to='events.Event', on_delete=models.CASCADE, default=[])
 
     def __str__(self):
         return self.user.username
@@ -19,10 +20,6 @@ class Profile(models.Model):
             UserNode(mongo_id=instance.id).save()
         instance.profile.save()
 
-class AttendanceRel(StructuredRel):
-    rating = IntegerProperty(required=True)
-
 class UserNode(StructuredNode):
     mongo_id = IntegerProperty(unique_index=True, required=True)
     friends = Relationship('UserNode', 'FRIEND')
-    attended = Relationship('EventNode', 'ATTENDED', model=AttendanceRel)
