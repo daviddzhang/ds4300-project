@@ -1,6 +1,7 @@
 from djongo import models
-from users.models import Profile
-from neomodel import StructuredNode, ArrayProperty, StringProperty, DateTimeProperty
+from users.models import Profile, UserNode
+from neomodel import StructuredNode, ArrayProperty, StringProperty, DateTimeProperty, Relationship, StructuredRel, \
+    IntegerProperty
 
 RATINGS = (
     ('1', '1'),
@@ -10,14 +11,21 @@ RATINGS = (
     ('5', '5'),
 )
 
+
 class Address(models.Model):
     address_line = models.CharField(max_length=30)
     city = models.CharField(max_length=64, default='Boston')
     state = models.CharField(max_length=2, default='MA')
     zip_code = models.CharField(max_length=5)
 
+    @staticmethod
+    def address_map_to_string(address):
+        return address["address_line"] + " " + address["city"] + ", " \
+               + address["state"] + " " + address["zip_code"]
+
     class Meta:
         abstract = True
+
 
 class Rating(models.Model):
     stars = models.CharField(max_length=1, choices=RATINGS)
@@ -26,6 +34,7 @@ class Rating(models.Model):
 
     class Meta:
         abstract = True
+
 
 class Event(models.Model):
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -42,6 +51,12 @@ class Event(models.Model):
     def __str__(self):
         return self.name
 
+
+class AttendanceRel(StructuredRel):
+    rating = IntegerProperty(required=True)
+
+
 class EventNode(StructuredNode):
     categories = ArrayProperty(StringProperty(), required=True)
     datetime = DateTimeProperty(required=True)
+    attended = Relationship(UserNode, 'ATTENDED', model=AttendanceRel)

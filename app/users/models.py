@@ -20,10 +20,6 @@ class Profile(models.Model):
             UserNode(mongo_id=instance.id).save()
         instance.profile.save()
 
-class AttendanceRel(StructuredRel):
-    rating = IntegerProperty(required=True)
-
 class UserNode(StructuredNode):
     mongo_id = IntegerProperty(unique_index=True, required=True)
     friends = Relationship('UserNode', 'FRIEND')
-    attended = Relationship('EventNode', 'ATTENDED', model=AttendanceRel)
