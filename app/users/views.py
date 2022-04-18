@@ -1,6 +1,7 @@
 from django.contrib.auth import login, authenticate
 from users.forms import SignupForm
 from django.shortcuts import render, redirect
+from .models import Profile
 
 def signup(request):
     if request.method == 'POST':
@@ -14,3 +15,7 @@ def signup(request):
     else:
         form = SignupForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+def profile(request, user_id):
+    profile = Profile.objects.get(pk=user_id)
+    return render(request, 'users/user_profile.html', {'profile': profile})

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h1 class="pb-2"><strong>{{profile.user.first_name}} {{profile.user.last_name}}</strong></h1>
+        </div>
+        <div class="row">
+            <div class="col pe-5">
+                <div class="row pb-5">
+                    <div class="col">
+                        {% if profile.user.id == user.id %} <!-- Viewing own profile -->
+                            <form method="post" action="">
+                                {% if profile.bio %}
+                                    <textarea name="biography" cols="50" rows="5" placeholder="Add a biography">
+                                        {{profile.bio}}
+                                    </textarea>
+                                {% else %}
+                                    <textarea name="biography" cols="50" rows="5" placeholder="Add a biography"></textarea>
+                                {% endif %}
+                                <br/>                                    
+                                <!-- TODO: PUT update for profile.bio -->
+                                <input type="submit" value="Save" class="btn btn-danger py-1 px-2 my-3 rounded-0">
+                            </form>
+                        {% else %}
+                            {% if profile.bio %}
+                                <h5>{{profile.bio}}</h5>
+                            {% else %}
+                                <h5 class="text-secondary">This user has no biography.</h5>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if profile.user.id != user.id %}
+                            <form method="post" action="">
+                                <button class="btn btn-danger rounded-0 py-1 px-2 my-3">Add friend</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h1 class="pb-2">Friends</h1>
+                        {% if profile.user.id == user.id %}
+                            <a href=""
+                                class="text-decoration-none">
+                                <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                    Find new friends
+                                </button>
+                            </a>
+                        {% endif %}
+                        <table>
+                            {% if profile.user.friends %}
+                                {% for friend in profile.user.friends %}
+                                    <tr class="border p-2">
+                                        <td class="px-3">{{friend.user.first_name}} {{friend.user.last_name}}</td>
+                                        <td class="px-3">
+                                            <form method="post" action="">
+                                                <button class="btn btn-danger rounded-0 py-1 px-2 my-3">Add friend</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                {% if profile.user.id == user.id %}
+                                    <h5 class="text-danger">Attend some events to meet new people!</h5>
+                                {% else %}
+                                    <h5 class="text-secondary">This user has no friends.</h5>
+                                {% endif %}
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <h1 class="pb-2">Upcoming Events</h1>
+                {% if profile.user.id == user.id %}
+                    <a href=""
+                        class="text-decoration-none">
+                        <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                            Browse events
+                        </button>
+                    </a>
+                {% endif %}
+                {% if profile.events %}
+                    <table>
+                        <tr class="border">
+                            <td class="justify-content-center p-3">
+                                <p class="m-0">Picnic at the park</p>
+                                <p class="m-0">10 January, 2022 at 3PM</p>
+                            </td>
+                        </tr>
+                    </table>
+                {% elif profile.user.id == user.id %}
+                    <h5 class="text-danger">Add some friends to find new events to go to</h5>
+                {% else %}
+                    <h5 class="text-secondary">This user has no upcoming events.</h5>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

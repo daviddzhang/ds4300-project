@@ -20,7 +20,10 @@
     </form>
 
     <p>Already have an account?</p>
-    <button type="button">
-        <a href="{% url 'login' %}">Login</a>
-    </button>
+    <a href="{% url 'login' %}"
+        class="text-decoration-none">
+        <button type="button">
+            Login
+        </button>
+    </a>
 {% endblock %}

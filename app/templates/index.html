@@ -5,7 +5,7 @@
     {% if user.is_authenticated %}
         <p>Welcome, {{ user.get_username }}. Thanks for logging in.</p>
         <button type="button">
-            <a href="{% url 'logged_out' %}">Sign out</a>
+            <a href="{% url 'logout' %}">Sign out</a>
         </button>
     {% else %}
         <p>Welcome, new user. Please log in.</p>

@@ -32,9 +32,12 @@
 </form>
 
 <p>Don't have an account yet?</p>
-<button type="button">
-    <a href="{% url 'signup' %}">Sign up</a>
-</button>
+<a href="{% url 'signup' %}"
+    class="text-decoration-none">
+    <button type="button">
+        Sign up
+    </button>
+</a>
 
 <!-- <button type="submit" onclick="location.href='{% url 'signup'}'">Sign up</button> -->
 
