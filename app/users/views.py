@@ -19,3 +19,9 @@ def signup(request):
 def profile(request, user_id):
     profile = Profile.objects.get(pk=user_id)
     return render(request, 'users/user_profile.html', {'profile': profile})
+
+def browse_users(request):
+    return render(request, 'users/browse_users.html')
+
+def browse_events(request):
+    return render(request, 'events/browse_events.html')

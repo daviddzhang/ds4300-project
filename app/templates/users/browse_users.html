@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'users/styles.css' %}"/>
+    <body>
+
+
+    <h3 class="title">Search by Username</h3>
+    <div class="input-group">
+        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+
+    </div>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th scope="row">DZ</th>
+
+            <td>David Zhang</td>
+            <td>Upcoming: Picnic at the Park</td>
+            <td>Past Events: Concert</td>
+            <td>4th Year</td>
+            <td>
+                <button type="button" class="addBtn">Add</button>
+            </td>  </tr>
+        <tr>
+            <th scope="row">DZ</th>
+            <td>David Zhang</td>
+            <td>Upcoming: Picnic at the Park</td>
+            <td>Past Events: Concert</td>
+            <td>4th Year</td>
+            <td>
+                <button type="button" class="addBtn">Add</button>
+            </td>  </tr>
+        <tr>
+            <th scope="row">DZ</th>
+            <td>David Zhang</td>
+            <td>Upcoming: Picnic at the Park</td>
+            <td>Past Events: Concert</td>
+            <td>4th Year</td>
+            <td>
+                <button type="button" class="addBtn">Add</button>
+            </td>  </tr>
+        <tr>
+            <th scope="row">DZ</th>
+            <td>David Zhang</td>
+            <td>Upcoming: Picnic at the Park</td>
+            <td>Past Events: Concert</td>
+            <td>4th Year</td>
+            <td>
+                <button type="button" class="addBtn">Add</button>
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+    </body>
+{% endblock %}
+

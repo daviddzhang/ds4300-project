@@ -1,46 +1,9 @@
 
-.title {
-    margin-top:40px;
-    margin-left: 50px;
-}
-
-.navbar {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    padding: 0rem 1rem;
-    background-color: black;
-}
-
-.navbarcontents {
-    white-space: nowrap;
-    margin-top: 6px;
-
-}
-
-.navbarText {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin-top: 6px;
-}
-
-.circle {
-    height: 40px;
-    width: 40px;
-    background-color: white;
-    border-radius: 50%;
-    margin: 6px 20px;
-}
-
 .table {
     margin-left: 50px;
     width:70%;
+    border: 1px solid #dee2e6;
+
 
 }
 
@@ -61,4 +24,13 @@
     border: none;
     color: white;
     width:70px;
+}
+
+.landing-tables {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.table-title{
+    text-align: center;
 }
