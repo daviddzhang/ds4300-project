@@ -38,7 +38,7 @@
                         {% for attendee in event_attendees %}
                             <div class="col-2">
                                 <div class="circle">
-                                    <p>{{ attendee }}</p>
+                                    <p class="pt-2">{{ attendee }}</p>
                                 </div>
                             </div>
                         {% endfor %}
@@ -59,10 +59,7 @@
           url: "{% url 'vote' event.id %}",
           headers: {'X-CSRFToken': csrftoken},
           type: 'POST',
-          data: {'rating': value},
-          success: function (d) {
-
-          }
+          data: {'rating': value}
        })
     })
     </script>
