@@ -18,7 +18,8 @@ def signup(request):
 
 
 def browse_users(request):
-    users = Profile.objects.all()
+    myuser = request.user
+    users = Profile.objects.all().exclude(user_id = myuser.id)
     return render(request, 'users/browse_users.html', {'users':users})
 
 def browse_events(request):
