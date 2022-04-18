@@ -1,4 +1,5 @@
 from django.contrib.auth import login, authenticate
+from users.models import Profile
 from users.forms import SignupForm
 from django.shortcuts import render, redirect
 
@@ -17,7 +18,8 @@ def signup(request):
 
 
 def browse_users(request):
-    return render(request, 'users/browse_users.html')
+    users = Profile.objects.all()
+    return render(request, 'users/browse_users.html', {'users':users})
 
 def browse_events(request):
     return render(request, 'events/browse_events.html')
