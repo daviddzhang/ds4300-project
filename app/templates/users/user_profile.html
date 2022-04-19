@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/styles.css' %}"/>
+
+    <div class="container py-3">        
+        <div class="row">
+            <!-- Left column -->
+            <div class="col-6 pe-5">
+                <div class="row m-0 pb-4 border-bottom">
+                    <div class="col p-0">
+                        <h1 class="pb-2"><strong>{{profile.user.first_name}} {{profile.user.last_name}}</strong></h1>
+
+                        {% if profile.user.id == user.id %}
+                            <form method="POST" 
+                                  action="{% url 'update_bio' %}">
+                                {% csrf_token %}
+                                {% if profile.bio %}
+                                    <textarea name="biography" 
+                                              cols="45" rows="3"
+                                              placeholder="Add a biography" 
+                                              class="p-2 border-0 bg-light">{{profile.bio}}</textarea>
+                                    <br/>
+                                    <input type="submit" value="Edit bio" class="btn btn-danger py-1 px-2 my-1 rounded-0">
+                                {% else %}
+                                    <textarea name="biography" 
+                                              cols="45" rows="3"
+                                              placeholder="Add a biography" 
+                                              class="p-2 border-0 bg-light"></textarea>
+                                    <br/>
+                                    <input type="submit" value="Save" class="btn btn-danger py-1 px-2 my-1 rounded-0">
+                                {% endif %}
+                                
+                            </form>
+                        {% else %}
+                            {% if profile.bio %}
+                                <h5>{{profile.bio}}</h5>
+                            {% else %}
+                                <h5 class="text-secondary">This user has no biography.</h5>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if profile.user.id != user.id %}
+                            {% if is_friend %}
+                            <form method="POST" 
+                                  action="{% url 'remove' profile.user.id %}">
+                                {% csrf_token %}
+                                <button type="submit" 
+                                        class="btn btn-danger rounded-0 py-1 px-2 my-3"
+                                        name="redirect"
+                                        value={{profile.user.id}}>
+                                    Remove friend
+                                </button>
+                            </form>
+                            {% else %}
+                                <form method="POST" 
+                                      action="{% url 'add' profile.user.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" 
+                                            class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                        Add friend
+                                    </button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- Friends block -->
+                <div class="row pt-4">
+                    <div class="col">
+                        <h2 class="pb-2">Friends</h2>
+                        {% if profile.user.id == user.id %}
+                            <a href="/users"
+                                class="text-decoration-none">
+                                <button class="btn btn-danger rounded-0 py-1 px-2 my-2">
+                                    Find friends
+                                </button>
+                            </a>
+                        {% endif %}
+
+                        {% if friends %}
+                            <div class="w-100 shadow">
+                                {% for friend in friends %}
+                                    <div class="row m-0 w-100 border-bottom align-items-center justify-content-between">
+                                        <div class="p-3">
+                                            {{friend.user.first_name}} {{friend.user.last_name}}
+                                        </div>
+                                        <div class="px-3 float-right">
+                                            {% if profile.user.id != user.id %}
+                                                <a href="friend.user.id">
+                                                    <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                                        View profile
+                                                    </button>
+                                                </a>
+                                            {% else %}
+                                                <form method="POST" action="{% url 'remove' friend.id %}">
+                                                    {% csrf_token %}
+                                                    <button class="btn btn-danger rounded-0 py-1 px-2 my-3"
+                                                            name="redirect"
+                                                            value={{profile.user.id}}>
+                                                        Remove
+                                                    </button>
+                                                </form>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                </div>
+                        {% else %}
+                            {% if profile.user.id == user.id %}
+                                <h5 class="text-danger mt-3">Attend some events to meet new people!</h5>
+                            {% else %}
+                                <h5 class="text-secondary mt-3">This user has no friends.</h5>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right column / Events block -->
+            <div class="col-6">
+                <h2 class="py-2">Upcoming Events</h2>
+                {% if profile.user.id == user.id %}
+                    <a href="/events"
+                        class="text-decoration-none">
+                        <button class="btn btn-danger rounded-0 py-1 px-2 my-2">
+                            Browse events
+                        </button>
+                    </a>
+                {% endif %}
+
+
+                <!-- TODO: delete -->
+                <div class="w-100 shadow">
+                    <div class="row border-bottom m-0 align-items-center justify-content-between">
+                        <div class="p-3">
+                            <h5 class="p-0"><strong>Picnic at the park</strong></h5>
+                            <p class="m-0 text-muted">January 17, 2022 11:00AM</p>
+                            <p class="m-0 text-muted">Hosted by Jane Doe</p>
+                        </div>
+                        <div class="px-3 float-right">
+                            {% if profile.user.id != user.id %}
+                                <form method="post" action="">
+                                    <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                        View
+                                    </button>
+                                </form>
+                            {% else %}
+                                <form method="post" action="">
+                                    <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                        Leave
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row border-bottom m-0 align-items-center justify-content-between">
+                        <div class="p-3">
+                            <h5 class="p-0"><strong>Picnic at the park</strong></h5>
+                            <p class="m-0 text-muted">January 17, 2022 11:00AM</p>
+                            <p class="m-0 text-muted">Hosted by Jane Doe</p>
+                        </div>
+                        <div class="px-3 float-right">
+                            {% if profile.user.id != user.id %}
+                                <a>
+                                    <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                        View
+                                    </button>
+                                </a>
+                            {% else %}
+                                <form method="post" action="">
+                                    <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                        Leave
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                    
+
+
+
+                {% if attending_events %}
+                    <div class="w-100 shadow">
+                        {% for event in attending_events %}
+                            <div class="row border-bottom m-0 align-items-center justify-content-between">
+                                <div class="p-3">
+                                    <h5 class="p-0"><strong>{{event.name}}</strong></h5>
+                                    <p class="m-0 text-muted">{{event.date_of_occurrence}}</p>
+                                    <p class="m-0 text-muted">
+                                        Hosted by {{event.creator.user.first_name}} {{event.creator.user.last_name}}
+                                    </p>
+                                </div>
+                                <div class="px-3 float-right">
+                                    {% if profile.user.id != user.id %}
+                                    <!-- TODO: check if this works -->
+                                        <a href="/events/{{event.id}}">
+                                            <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                                View
+                                            </button>
+                                        </a>
+                                    {% else %}
+                                    <!-- TODO: Add view -->
+                                        <form method="POST" action="">
+                                            <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                                Leave
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% elif profile.user.id == user.id %}
+                    <h5 class="text-danger mt-3">Add some friends to find new events to go to</h5>
+                {% else %}
+                    <h5 class="text-secondary mt-3">This user has no upcoming events.</h5>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

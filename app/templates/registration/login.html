@@ -31,6 +31,16 @@
     <input type="hidden" name="next" value="{{ next }}" />
 </form>
 
+<p>Don't have an account yet?</p>
+<a href="{% url 'signup' %}"
+    class="text-decoration-none">
+    <button type="button">
+        Sign up
+    </button>
+</a>
+
+<!-- <button type="submit" onclick="location.href='{% url 'signup'}'">Sign up</button> -->
+
 {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 

@@ -12,6 +12,7 @@ djongo = "*"
 pytz = "*"
 install = "*"
 django-neomodel = "*"
+tzdata = "*"
 
 [dev-packages]
 
