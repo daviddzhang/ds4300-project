@@ -1,8 +1,8 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from users.models import Profile
 from users.forms import SignupForm
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Profile
 
 def signup(request):
     if request.method == 'POST':
@@ -63,7 +63,9 @@ def remove(request, user_id):
     return redirect('user_profile', user_id=request.POST['redirect'])
 
 def browse_users(request):
-    return render(request, 'users/browse_users.html')
+    myuser = request.user
+    users = Profile.objects.all().exclude(user_id = myuser.id)
+    return render(request, 'users/browse_users.html', {'users':users})
 
 def browse_events(request):
     return render(request, 'events/browse_events.html')

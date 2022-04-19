@@ -13,6 +13,13 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    def upcomingEvent(self):
+        return ''
+    
+    def pastEvent(self):
+        return ''
+    
+
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):
         if created:
