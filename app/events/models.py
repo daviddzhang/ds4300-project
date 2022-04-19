@@ -57,6 +57,7 @@ class AttendanceRel(StructuredRel):
 
 
 class EventNode(StructuredNode):
+    mongo_id = IntegerProperty(unique_index=True, required=True)
     categories = ArrayProperty(StringProperty(), required=True)
     datetime = DateTimeProperty(required=True)
     attended = Relationship(UserNode, 'ATTENDED', model=AttendanceRel)
