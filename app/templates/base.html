@@ -31,7 +31,7 @@
             {% if user.is_authenticated %}
                 <li class="nav-item dropdown">
                     <button class="nav-link active circle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="text-dark">DS</span>
+                        <span class="text-dark">{{ user_initials }}</span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/users/{{user.profile.id}}">Profile</a>
