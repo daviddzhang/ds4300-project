@@ -66,6 +66,3 @@ def browse_users(request):
     myuser = request.user
     users = Profile.objects.all().exclude(user_id = myuser.id)
     return render(request, 'users/browse_users.html', {'users':users})
-
-def browse_events(request):
-    return render(request, 'events/browse_events.html')

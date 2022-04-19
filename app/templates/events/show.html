@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load event_extras %}
 
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'events/styles.css' %}"/>
@@ -22,14 +23,15 @@
                 <a href="#3" title="Give 3 stars" data-value="3">★</a>
                 <a href="#2" title="Give 2 stars" data-value="2">★</a>
                 <a href="#1" title="Give 1 star" data-value="1">★</a>
+                <p id="rate-success" class="text-success mt-2" style="display: none">Rating saved</p>
             </div>
         {% else %}
             <p class="text-secondary"> Rate this event after attending! </p>
         {% endif %}
         <div class="row">
             <div class="col-6">
-                <p><b>When:</b> {{ event_time }}</p>
-                <p><b>Where:</b> {{ event_address }}</p>
+                <p><b>When:</b> {% render_date event.date_of_occurrence %}</p>
+                <p><b>Where:</b> {% render_location event.location %}</p>
                 <p><b>Organizer:</b> {{ event_organizer }}</p>
                 <p><b>Categories:</b> {{ event_categories }}</p>
                 <p><b>Attendees:</b></p>
@@ -59,7 +61,10 @@
           url: "{% url 'vote' event.id %}",
           headers: {'X-CSRFToken': csrftoken},
           type: 'POST',
-          data: {'rating': value}
+          data: {'rating': value},
+          success: function (data) {
+               $("#rate-success").show()
+          }
        })
     })
     </script>

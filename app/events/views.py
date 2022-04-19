@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from random import sample
-from .models import Event, Address
+from events.models import Event, Address
 
 @login_required
 def show(request, event_id):
@@ -43,3 +43,8 @@ def attend(request, event_id):
     request.user.profile.attending_events.add(event)
     request.user.profile.save()
     return redirect("show", event_id=event_id)
+
+def browse_events(request):
+    events = Event.objects.order_by('date_of_occurrence')
+    event_data = [(event, request.user.profile in event.attendees.all()) for event in events]
+    return render(request, 'events/browse_events.html', {'event_data': event_data})

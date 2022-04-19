@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load event_extras %}
 
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'users/styles.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'events/styles.css' %}"/>
     <body>
 
 
@@ -15,43 +17,22 @@
 
     <table class="table">
         <tbody>
-        <tr>
-            <td> Picnic at the Park </td>
-
-            <td>David Zhang</td>
-            <td>March 29th, 2021 at 10PM</td>
-            <td>123 Some Street, Boston MA 02115</td>
-            <td>
-                <button type="button" class="addBtn">Attend</button>
-            </td>  </tr>
-        <tr>
-        <tr>
-            <td> Picnic at the Park </td>
-
-            <td>David Zhang</td>
-            <td>March 29th, 2021 at 10PM</td>
-            <td>123 Some Street, Boston MA 02115</td>
-            <td>
-                <button type="button" class="addBtn">Attend</button>
-            </td>  </tr>
-        <tr>
-            <td> Picnic at the Park </td>
-
-            <td>David Zhang</td>
-            <td>March 29th, 2021 at 10PM</td>
-            <td>123 Some Street, Boston MA 02115</td>
-            <td>
-                <button type="button" class="addBtn">Attend</button>
-            </td>  </tr>
-        <tr>
-            <td> Picnic at the Park </td>
-
-            <td>David Zhang</td>
-            <td>March 29th, 2021 at 10PM</td>
-            <td>123 Some Street, Boston MA 02115</td>
-            <td>
-                <button type="button" class="addBtn">Attend</button>
-            </td>  </tr>
+        {% for event_datum in event_data %}
+            {% with event=event_datum.0 %}
+                <tr>
+                    <td><a style="color: inherit;" href="{% url 'show' event.id %}">{{ event.name }}</a></td>
+                    <td>{% render_date event.date_of_occurrence %}</td>
+                    <td>{% render_location event.location %}</td>
+                    <td>
+                        <form method="post" action="{% url 'attend' event.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="attendBtn" {% if event_datum.1 %} disabled {% endif %} >Attend{% if  event_datum.1 %}ing{% endif %}</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+            {% endwith %}
+        {% endfor %}
         </tbody>
 
     </table>
