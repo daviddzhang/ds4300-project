@@ -1,4 +1,5 @@
 from datetime import datetime
+from mimetypes import init
 from turtle import up
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -26,7 +27,6 @@ def profile(request, user_id):
     past_events, upcoming_events = parse_events(attending_events)
     friends = profile.friends.all()
     is_friend = profile in request.user.profile.friends.all()
-    print(is_friend)
     return render(request, 'users/user_profile.html', {
         'profile': profile,
         'past_events': past_events,

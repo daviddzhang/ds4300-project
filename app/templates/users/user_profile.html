@@ -10,7 +10,12 @@
             <div class="col-6 pe-5">
                 <div class="row m-0 pb-4 border-bottom">
                     <div class="col p-0">
-                        <h1 class="pb-2"><strong>{{profile.user.first_name}} {{profile.user.last_name}}</strong></h1>
+                        <h4 class="pb-2">
+                            <span class="h1">
+                                <strong>{{profile.user.first_name}} {{profile.user.last_name}}</strong>
+                            </span>
+                            <span class="text-muted">{{profile}}</span>
+                        </h4>
 
                         {% if profile.user.id == user.id %}
                             <form method="POST" 
@@ -78,7 +83,6 @@
                                 </button>
                             </a>
                         {% endif %}
-
                         {% if friends %}
                             <div class="w-100 shadow">
                                 {% for friend in friends %}
