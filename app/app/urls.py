@@ -35,4 +35,5 @@ urlpatterns = [
     path('events/<int:event_id>/', event_views.show, name='show'),
     path('events/<int:event_id>/rate', event_views.vote, name='vote'),
     path('events/<int:event_id>/attend', event_views.attend, name='attend'),
+    path('events/<int:event_id>/leave', event_views.leave, name='leave'),
 ]

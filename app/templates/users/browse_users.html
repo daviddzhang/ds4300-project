@@ -17,7 +17,11 @@
         <tbody>
             {% for profile in users %}
             <tr>
-                <th scope="row">{{ profile }}</th>
+                <th scope="row">
+                    <a href="{% url 'user_profile' profile.user.id %}"
+                        class="text-decoration-none text-dark">
+                    {{ profile }}
+                </th>
     
                 <td>{{ profile.user.first_name }} {{ profile.user.last_name }}</td>
                 <td> Upcoming: {{ profile.upcomingEvent|default:'None' }}</td>
@@ -25,21 +29,9 @@
                 <td>{{ profile.bio }}</td>
                 <td>
                     <button type="button" class="addBtn">Add</button>
-                </td>  
+                </td>
             </tr>
             {% endfor %}
-
-        <tr>
-            <th scope="row">DZ</th>
-
-            <td>David Zhang</td>
-            <td>Upcoming: Picnic at the Park</td>
-            <td>Past Events: Concert</td>
-            <td>4th Year</td>
-            <td>
-                <button type="button" class="addBtn">Add</button>
-            </td>
-        </tr>
         </tbody>
 
     </table>
