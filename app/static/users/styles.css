@@ -1,12 +1,3 @@
-
-.table {
-    margin-left: 50px;
-    width:70%;
-    border: 1px solid #dee2e6;
-
-
-}
-
 .input-group {
     /* position: relative; */
     display: -ms-flexbox;
@@ -15,7 +6,7 @@
     flex-wrap: wrap;
     -ms-flex-align: stretch;
     align-items: stretch;
-    width: 70%;
+    width: 95%;
     margin-left: 50px;
 }
 

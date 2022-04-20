@@ -11,6 +11,26 @@ RATINGS = (
     ('5', '5'),
 )
 
+EVENT_CATEGORIES_MAP = {
+    '1': 'Food',
+    '2': 'Outdoors',
+    '3': 'Music',
+    '4': 'Fitness & Wellness',
+    '5': 'Sports',
+    '6': 'Movies',
+    '7': 'Studying'
+}
+
+EVENT_CATEGORIES = (
+    ('1', 'Food'),
+    ('2', 'Outdoors'),
+    ('3', 'Music'),
+    ('4', 'Fitness & Wellness'),
+    ('5', 'Sports'),
+    ('6', 'Movies'),
+    ('7', 'Studying')
+)
+
 
 class Address(models.Model):
     address_line = models.CharField(max_length=30)

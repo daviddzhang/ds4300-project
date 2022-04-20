@@ -8,14 +8,18 @@
     <link rel="stylesheet" type="text/css" href="{% static 'events/styles.css' %}"/>
     <body>
 
-
-    <h3 class="title">Search by Event Name</h3>
+    <div class="row">
+        <h3 class="title col">Search by Event Name</h3>
+        <form action="{% url 'new_event' %}">
+            <button class="ml-auto mr-5 mt-5 mb-2 col-auto attendBtn">Create</button>
+        </form>
+    </div>
     <div class="input-group">
         <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
 
     </div>
 
-    <table class="table">
+    <table class="table mx-5">
         <tbody>
         {% for event_datum in event_data %}
             {% with event=event_datum.0 %}

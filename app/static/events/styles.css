@@ -4,6 +4,10 @@
     color: white;
 }
 
+.table {
+  width: 95%;
+}
+
 .rating input {
   float: right;
   opacity: 0;

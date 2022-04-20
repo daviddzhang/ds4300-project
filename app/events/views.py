@@ -1,8 +1,41 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from random import sample
-from events.models import Event, Address
+from time import strptime
+from events.models import Event, Address, EVENT_CATEGORIES_MAP
+from events.forms import EventForm
+
+
+@login_required
+def new_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            description = form.cleaned_data['description']
+            date_of_occurrence = form.cleaned_data['date_of_occurrence']
+            categories = [EVENT_CATEGORIES_MAP[category] for category in form.cleaned_data['categories']]
+            address_line = form.cleaned_data['address_line']
+            city = form.cleaned_data['city']
+            state = form.cleaned_data['state']
+            zip_code = form.cleaned_data['zip_code']
+
+            location = {
+                'address_line': address_line,
+                'city': city,
+                'state': state,
+                'zip_code': zip_code
+            }
+            event = Event(creator=request.user.profile, name=name, description=description,
+                          date_of_occurrence=date_of_occurrence, categories=categories, location=location)
+            event.save()
+            event.refresh_from_db()
+            return redirect("show", event.id)
+    else:
+        form = EventForm()
+    return render(request, 'events/new_event.html', {'form': form})
+
 
 @login_required
 def show(request, event_id):
@@ -12,9 +45,9 @@ def show(request, event_id):
         event_address = Address.address_map_to_string(event.location)
         event_organizer = event.creator.user.first_name + " " + event.creator.user.last_name
         event_categories = ", ".join(event.categories)
-        all_attendees = event.attendees.all()
+        all_attendees = list(event.attendees.all())
         is_user_attending = request.user.profile in all_attendees
-        attendees = [sample(all_attendees, 6)] if len(event.attendees.all()) >= 6 else all_attendees
+        attendees = sample(all_attendees, 12) if len(all_attendees) >= 12 else all_attendees
         event_attendees = [attendee.user.first_name[0] + attendee.user.last_name[0] for attendee in attendees]
     except Event.DoesNotExist:
         raise Http404("Event does not exist")
@@ -28,12 +61,14 @@ def show(request, event_id):
         'is_user_attending': is_user_attending
     })
 
+
 @login_required
 def vote(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     event.ratings.append({"stars": request.POST.get('rating', None), "user_id": request.user.profile.id})
     event.save()
     return HttpResponse(status=204)
+
 
 @login_required
 def attend(request, event_id):
@@ -43,6 +78,7 @@ def attend(request, event_id):
     request.user.profile.attending_events.add(event)
     request.user.profile.save()
     return redirect("show", event_id=event_id)
+
 
 def browse_events(request):
     events = Event.objects.order_by('date_of_occurrence')

@@ -31,6 +31,7 @@ urlpatterns = [
     path('users/<int:user_id>/add', user_views.add, name='add'),
     path('users/<int:user_id>/remove', user_views.remove, name='remove'),
     path('events/', event_views.browse_events, name='browse_events'),
+    path('events/new', event_views.new_event, name='new_event'),
     path('events/<int:event_id>/', event_views.show, name='show'),
     path('events/<int:event_id>/rate', event_views.vote, name='vote'),
     path('events/<int:event_id>/attend', event_views.attend, name='attend'),
