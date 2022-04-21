@@ -1,6 +1,12 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<p>Logged out!</p>
-<a href="{% url 'login'%}">Click here to login again.</a>
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/styles.css' %}"/>
+
+    <h2 style="text-align: center; margin-top: 30px; padding: 8px">Logged out! </h2>
+    <h4 style="text-align: center;padding: 10px">Click the button below to login again.</h4>
+
+    <a href="{% url 'login'%}" class="signinup-button"style="width: 10%; text-align: center; ">Login</a>
+
 {% endblock %}

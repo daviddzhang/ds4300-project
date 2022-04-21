@@ -1,29 +1,44 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-    <h2>Sign up</h2>
-    <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% if field.help_text %}
-                    <small style="color: grey">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <p style="color: red">{{ error }}</p>
-                {% endfor %}
-            </p>
-        {% endfor %}
-        <button type="submit">Sign up</button>
-    </form>
+    <link rel="stylesheet" type="text/css" href="{% static 'registration/styles.css' %}"/>
 
-    <p>Already have an account?</p>
-    <a href="{% url 'login' %}"
-        class="text-decoration-none">
-        <button type="button">
-            Login
-        </button>
-    </a>
+    <div style="margin-top:50px;margin-bottom: 50px">
+        <div class="center">
+            <div></div>
+            <div class="background">
+                <h3 style="text-align: center"> Sign Up</h3>
+
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div >
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                            {% for error in field.errors %}
+                                <div class="error">{{ error }}</div>
+                            {% endfor %}
+                            {% if field.help_text %}
+                                <small style="color: grey;">
+                                <div class="help-text">
+                                    {{ field.help_text }}
+
+                                </div>
+                                </small>
+                            {% endif %}
+
+                        </div>
+                    {% endfor %}
+                    <button class="signinup-button"type="submit">Sign up</button>
+                </form>
+
+                <!-- Register buttons -->
+                <div class="text-center">
+                    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
 {% endblock %}
+
