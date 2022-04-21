@@ -39,3 +39,45 @@
 .rating2 a {
     float:none
 }
+
+.border{
+    width: 97%;
+    padding: 30px;
+    margin: 40px 1.5% 40px;
+}
+
+#id_name, #id_address_line, #id_city, #id_state, #id_zip_code {
+    display: block;
+    width: 30%;
+    height: calc(1.5em + 0.75rem + 2px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin-bottom: 15px;
+}
+
+.create-btn {
+    display: block;
+    width: 30%;
+    color: #fff;
+    background-color: #c85f5b;
+    border-color: #c85f5b;
+    padding:10px;
+
+}
+
+textarea, #id_date_of_occurrence {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
