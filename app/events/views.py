@@ -80,6 +80,18 @@ def attend(request, event_id):
     return redirect("show", event_id=event_id)
 
 
+@login_required
+def leave(request, event_id):
+    if request.method == 'POST':
+        event = get_object_or_404(Event, pk=event_id)
+        user = request.user.profile
+        user.attending_events.remove(event)
+        user.save()
+        event.attendees.remove(user)
+        event.save()
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
 def browse_events(request):
     events = Event.objects.order_by('date_of_occurrence')
     event_data = [(event, request.user.profile in event.attendees.all()) for event in events]
