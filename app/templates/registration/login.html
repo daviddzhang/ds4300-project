@@ -26,6 +26,7 @@
     <div style="display: grid">
         <p style="margin: 1% 20%;color:#979ca1">Username:</p>
         <td >{{ form.username }}</td>
+
     </div>
 
     <!-- Password input -->
@@ -33,7 +34,9 @@
         <p style="margin: 1% 20%;color:#979ca1">Password:</p>
 
         <td>{{ form.password }}</td>
-    </div>
+                    <p><a style="margin-right: 20%;float:right;" href="{% url 'password_reset' %}">Forgot password?</a></p>
+
+                </div>
 
             <div class="error">
 
@@ -45,6 +48,7 @@
                 <!-- Submit button -->
     <button type="submit" value="login" class="signinup-button">Sign in</button>
             <input type="hidden" name="next" value="{{ next }}" />
+
             </form>
 
     <!-- Register buttons -->
@@ -55,10 +59,5 @@
         <div></div>
     </div>
 </div>
-
-
-<!-- <button type="submit" onclick="location.href='{% url 'signup'}'">Sign up</button> -->
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
 {% endblock %}
