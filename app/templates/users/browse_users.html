@@ -27,8 +27,26 @@
                 <td> Upcoming: {{ profile.upcomingEvent|default:'None' }}</td>
                 <td>Past Events: {{ profile.pastEvent|default:'None' }}</td>
                 <td>{{ profile.bio }}</td>
-                <td>
-                    <button type="button" class="addBtn">Add</button>
+                <td class="float-right">
+                    {% if profile in friends %}
+                    <form method="POST" 
+                            action="{% url 'remove' profile.user.id %}">
+                        {% csrf_token %}
+                        <button type="submit"
+                                class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                            Remove
+                        </button>
+                    </form>
+                    {% else %}
+                        <form method="POST" 
+                                action="{% url 'add' profile.user.id %}">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    class="btn btn-danger rounded-0 py-1 px-2 my-3">
+                                Add
+                            </button>
+                        </form>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

@@ -52,9 +52,7 @@
                                   action="{% url 'remove' profile.user.id %}">
                                 {% csrf_token %}
                                 <button type="submit" 
-                                        class="btn btn-danger rounded-0 py-1 px-2 my-3"
-                                        name="redirect"
-                                        value={{profile.user.id}}>
+                                        class="btn btn-danger rounded-0 py-1 px-2 my-3">
                                     Remove friend
                                 </button>
                             </form>
@@ -98,9 +96,7 @@
                                                 {% else %}
                                                     <form method="POST" action="{% url 'remove' friend.id %}">
                                                         {% csrf_token %}
-                                                        <button class="btn btn-danger rounded-0 py-1 px-2 my-3"
-                                                                name="redirect"
-                                                                value={{profile.user.id}}>
+                                                        <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
                                                             Remove
                                                         </button>
                                                     </form>
@@ -151,9 +147,7 @@
                                         {% else %}
                                             <form method="POST" action="{% url 'leave' event.id %}">
                                                 {% csrf_token %}
-                                                <button class="btn btn-danger rounded-0 py-1 px-2 my-3"
-                                                        name="redirect"
-                                                        value={{profile.user.id}}>
+                                                <button class="btn btn-danger rounded-0 py-1 px-2 my-3">
                                                     Leave
                                                 </button>
                                             </form>

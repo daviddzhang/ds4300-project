@@ -87,8 +87,10 @@ def leave(request, event_id):
         user = request.user.profile
         user.attending_events.remove(event)
         user.save()
+        event.attendees.remove(user)
+        event.save()
     
-    return redirect('user_profile', user_id=request.POST['redirect'])
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def browse_events(request):
     events = Event.objects.order_by('date_of_occurrence')

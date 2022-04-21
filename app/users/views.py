@@ -1,6 +1,4 @@
 from datetime import datetime
-from mimetypes import init
-from turtle import up
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from users.models import Profile
@@ -38,13 +36,12 @@ def profile(request, user_id):
 @login_required
 def update_bio(request):
     if request.method == 'POST':
-        print(request.POST)
         bio = request.POST['biography']
         user = request.user.profile
         user.bio = bio
         user.save()
         
-    return redirect('user_profile', user_id=user.id)
+    return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def add(request, user_id):
@@ -54,7 +51,7 @@ def add(request, user_id):
         user.friends.add(friend)
         user.save()
     
-    return redirect('user_profile', user_id=user_id)
+    return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def remove(request, user_id):
@@ -64,12 +61,17 @@ def remove(request, user_id):
         user.friends.remove(friend)
         user.save()
     
-    return redirect('user_profile', user_id=request.POST['redirect'])
+    return redirect(request.META.get('HTTP_REFERER'))
 
 def browse_users(request):
     myuser = request.user
     users = Profile.objects.all().exclude(user_id = myuser.id)
-    return render(request, 'users/browse_users.html', {'users':users})
+    friends = myuser.profile.friends.all()
+    
+    return render(request, 'users/browse_users.html', {
+        'users': users,
+        'friends': friends,
+    })
 
 # Helper methods
 
