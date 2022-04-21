@@ -1,46 +1,63 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'registration/styles.css' %}"/>
 
-{% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+<div style="margin-top:50px">
+    <div class="center">
+        <div></div>
+        <div class="background">
+            <h3 style="text-align: center"> Sign In</h3>
 
-{% if next %}
-{% if user.is_authenticated %}
-<p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-{% else %}
-<p>Please login to see this page.</p>
-{% endif %}
-{% endif %}
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
 
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <table>
-        <tr>
-            <td>{{ form.username.label_tag }}</td>
-            <td>{{ form.username }}</td>
-        </tr>
-        <tr>
-            <td>{{ form.password.label_tag }}</td>
-            <td>{{ form.password }}</td>
-        </tr>
-    </table>
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
-</form>
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <p>Your account doesn't have access to this page. To proceed,
+                            please login with an account that has access.</p>
+                    {% else %}
+                        <p>Please login to see this page.</p>
+                    {% endif %}
+                {% endif %}
 
-<p>Don't have an account yet?</p>
-<a href="{% url 'signup' %}"
-    class="text-decoration-none">
-    <button type="button">
-        Sign up
-    </button>
-</a>
+    <!-- Email input -->
+    <div style="display: grid">
+        <p style="margin: 1% 20%;color:#979ca1">Username:</p>
+        <td >{{ form.username }}</td>
+    </div>
+
+    <!-- Password input -->
+                <div style="display: grid">
+        <p style="margin: 1% 20%;color:#979ca1">Password:</p>
+
+        <td>{{ form.password }}</td>
+    </div>
+
+            <div class="error">
+
+                {% if form.errors %}
+                    <p>Your username and password didn't match.<br> Please try again.</p>
+                {% endif %}
+            </div>
+
+                <!-- Submit button -->
+    <button type="submit" value="login" class="signinup-button">Sign in</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+            </form>
+
+    <!-- Register buttons -->
+    <div class="text-center">
+        <p>Not a member? <a href="{% url 'signup' %}">Register</a></p>
+    </div>
+        </div>
+        <div></div>
+    </div>
+</div>
+
 
 <!-- <button type="submit" onclick="location.href='{% url 'signup'}'">Sign up</button> -->
-
 {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
