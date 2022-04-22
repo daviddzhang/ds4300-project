@@ -12,7 +12,7 @@
                     <div class="col p-0">
                         <h4 class="pb-2">
                             <span class="h1">
-                                <strong>{{profile.user.first_name}} {{profile.user.last_name}}</strong>
+                                <strong>{{profile.user.first_name}} {{profile.user.last_name}}&nbsp;</strong>
                             </span>
                             <span class="text-muted">{{profile}}</span>
                         </h4>
@@ -27,7 +27,7 @@
                                               placeholder="Add a biography" 
                                               class="p-2 border-0 bg-light">{{profile.bio}}</textarea>
                                     <br/>
-                                    <input type="submit" value="Edit bio" class="btn btn-danger py-1 px-2 my-1 rounded-0">
+                                    <input type="submit" value="Edit" class="btn btn-danger py-1 px-2 my-1 rounded-0">
                                 {% else %}
                                     <textarea name="biography" 
                                               cols="45" rows="3"
@@ -74,7 +74,7 @@
                     <div class="col">
                         <h2 class="pb-2">Friends</h2>
                         {% if profile.user.id == user.id %}
-                            <a href="{% url 'users' %}"
+                            <a href="{% url 'browse_users' %}"
                                 class="text-decoration-none">
                                 <button class="btn btn-danger rounded-0 py-1 px-2 my-2">
                                     Find friends
@@ -121,7 +121,7 @@
             <div class="col-6 ps-5">
                 <h2 class="py-2">Upcoming Events</h2>
                 {% if profile.user.id == user.id %}
-                    <a href="{% url 'events' %}"
+                    <a href="{% url 'browse_events' %}"
                         class="text-decoration-none">
                         <button class="btn btn-danger rounded-0 py-1 px-2 my-2">
                             Browse events
