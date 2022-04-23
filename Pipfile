@@ -13,6 +13,7 @@ pytz = "*"
 install = "*"
 django-neomodel = "*"
 tzdata = "*"
+faker = "*"
 
 [dev-packages]
 
