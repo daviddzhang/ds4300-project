@@ -4,65 +4,82 @@
 
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'users/styles.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'landing.css' %}"/>
 
 
     {% if user.is_authenticated %}
         <h3 style="text-align: center; padding: 25px">Welcome, {{ user.get_username }}. Thanks for logging in.</h3>
     {% else %}
-        <h3 style="text-align: center; padding: 25px">Welcome, new user. Please log in.</h3>
+        <h3 style="text-align: center; padding: 25px">Welcome! Please create an account or log in to use the website.</h3>
     {% endif %}
 
+    {% if user.is_authenticated %}
+        <div class="row">
+            <div class="col-4">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">You have {{ upcoming_events|length }} events coming up</th>
+                        </tr>
+                    </thead>
 
-    <div class="landing-tables">
-        <table class="table">
-            <tbody>
-            <tr class="table-title">
-                <td> You have 3 events coming up </td>
-            <tr>
-            <tr class="table-title">
-                {% for key,value in upcoming_events.items %}
-                    <tr class="table-title">
-                        <td> {{ key}} <br> {{value }} </td>
+                    <tbody>
+                    <tr class="">
+                        {% for key,value in upcoming_events.items %}
+                            <tr class="">
+                                <td> {{ key}} <br> {{value }} </td>
 
+                            <tr>
+                        {% endfor %}
                     <tr>
-                {% endfor %}
-            <tr>
-            </tbody>
+                    </tbody>
 
-        </table>
-        <table class="table">
-            <tbody>
-            <td class="table-title">Friend Recommendations</td>
-            {% for key,value in friend_reqs.items %}
-                    <tr class="table-title">
-                        <td> {{ key}} {{value }}
-                            <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
+                </table>
+            </div>
 
-                        </td>
+            <div class="col-4 text-center">
+                <table class="table mx-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">Friend Recommendations</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for key,value in friend_reqs.items %}
+                            <tr class="table-title">
+                                <td> {{ key}} {{value }}
+                                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
+
+                                </td>
+                            <tr>
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+
+            <div class="col-4 text-center">
+                <table class="table">
+                    <thead>
                     <tr>
-            {% endfor %}
+                        <th scope="col">Event Recommendations</th>
+                    </tr>
+                    </thead>
 
-            </tbody>
+                    <tbody>
+                        {% for key,value in event_reqs.items %}
+                            <tr class="">
+                                <td> {{ key}} at {{value }} </td>
+                            <tr>
+                        {% endfor %}
+                    </tbody>
 
-        </table>
-        <table class="table">
-            <tbody>
-            <tr class="table-title">
-                <td> Event Recommendations </td>
-            <tr>
-            <tr class="table-title">
-                {% for key,value in event_reqs.items %}
-                    <tr class="table-title">
-                        <td> {{ key}} <br> {{value }} </td>
+                </table>
+            </div>
 
-                    <tr>
-                {% endfor %}
-            <tr>
-            </tbody>
-
-        </table>
-
-    </div>
+        </div>
+    {% endif %}
 
 {% endblock %}

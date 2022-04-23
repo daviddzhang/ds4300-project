@@ -23,8 +23,8 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def update_user_profile(sender, instance, created, **kwargs):
         if created:
-            Profile.objects.create(user=instance)
-            UserNode(mongo_id=instance.id).save()
+            profile = Profile.objects.create(user=instance)
+            UserNode(mongo_id=profile.id).save()
         instance.profile.save()
 
 class UserNode(StructuredNode):

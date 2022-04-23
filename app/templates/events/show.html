@@ -58,7 +58,7 @@
 
         let csrftoken = Cookies.get('csrftoken');
        $.ajax({
-          url: "{% url 'vote' event.id %}",
+          url: "{% url 'rate' event.id %}",
           headers: {'X-CSRFToken': csrftoken},
           type: 'POST',
           data: {'rating': value},

@@ -49,7 +49,7 @@
                         {% if profile.user.id != user.id %}
                             {% if is_friend %}
                             <form method="POST" 
-                                  action="{% url 'remove' profile.user.id %}">
+                                  action="{% url 'remove' profile.id %}">
                                 {% csrf_token %}
                                 <button type="submit" 
                                         class="btn btn-danger rounded-0 py-1 px-2 my-3">
@@ -58,7 +58,7 @@
                             </form>
                             {% else %}
                                 <form method="POST" 
-                                      action="{% url 'add' profile.user.id %}">
+                                      action="{% url 'add' profile.id %}">
                                     {% csrf_token %}
                                     <button type="submit" 
                                             class="btn btn-danger rounded-0 py-1 px-2 my-3">
@@ -84,7 +84,7 @@
                         {% if friends %}
                             <div class="w-100 shadow">
                                 {% for friend in friends %}
-                                    <a href="{% url 'user_profile' friend.user.id %}"
+                                    <a href="{% url 'user_profile' friend.id %}"
                                         class="text-decoration-none text-dark">
                                         <div class="row m-0 p-3 w-100 border-bottom align-items-center justify-content-between">
                                             <div class="pe-3">
