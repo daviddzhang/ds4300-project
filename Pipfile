@@ -14,6 +14,8 @@ install = "*"
 django-neomodel = "*"
 tzdata = "*"
 faker = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [dev-packages]
 
