@@ -1,7 +1,7 @@
 from djongo import models
 from users.models import Profile, UserNode
 from neomodel import StructuredNode, ArrayProperty, StringProperty, DateTimeProperty, Relationship, StructuredRel, \
-    IntegerProperty
+    IntegerProperty, db
 
 RATINGS = (
     ('1', '1'),
@@ -81,3 +81,17 @@ class EventNode(StructuredNode):
     categories = ArrayProperty(StringProperty(), required=True)
     datetime = DateTimeProperty(required=True)
     attended = Relationship(UserNode, 'ATTENDED', model=AttendanceRel)
+
+    @staticmethod
+    def event_reqs(mongo_id):
+        cypher_query = """
+        MATCH (u1:UserNode {mongo_id: %d})-[f]-(u2:UserNode),
+        (u2)-[a]-(e:EventNode)
+        WHERE e.datetime > datetime().epochSeconds
+        AND NOT (u1)-[]-(e)
+        return e
+        """ % (mongo_id)
+        results, columns = db.cypher_query(cypher_query)
+        nodes = [EventNode.inflate(row[0]) for row in results]
+        ids = set([node.mongo_id for node in nodes])
+        return Event.objects.filter(id__in=ids).all()

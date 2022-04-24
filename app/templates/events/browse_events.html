@@ -9,12 +9,17 @@
     <body>
 
     <div class="row">
-        <h3 class="title col">Search by Event Name</h3>
-        <div class="input-group pl-3">
-            <form action="{% url 'browse_events' %}" method="get">
-                <input name="q" class="form-control rounded" type="text" placeholder="Search...">
-            </form>
+        <div class="col">
+            <h3 class="title">Search by Event Name</h3>
+            <div class="input-group">
+                <form action="{% url 'browse_events' %}" method="get">
+                    <input name="q" class="form-control rounded" type="text" placeholder="Search...">
+                </form>
+            </div>
         </div>
+        <form class="mr-3" action="{% url 'new_event' %}">
+            <button class="mr-5 px-3 py-2 mt-5 mb-2 col-auto attendBtn">Create</button>
+        </form>
     </div>
 
     <table class="table mx-5">

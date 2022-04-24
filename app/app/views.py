@@ -1,15 +1,14 @@
 from django.shortcuts import render
 from users.views import parse_events
+from users.models import UserNode
+from events.models import EventNode
 
 
 def index(request):
     if request.user.is_authenticated:
         _, upcoming_events = parse_events(request.user.profile.attending_events.all())
-        friend_reqs = {'Alice': "Williams", "Bob": "Jones", "John": "Miller"}
-
-        event_reqs = {'Cooking Class': "10 January, 2022 at 3PM",
-                      "Festival": "12 January, 2022 at 5:15PM",
-                      "Fashion Show": "16 January, 2022 at 6:30AM"}
+        friend_reqs = list(UserNode.friend_reqs(request.user.profile.id))
+        event_reqs = list(EventNode.event_reqs(request.user.profile.id))
     else:
         upcoming_events = None
         friend_reqs = None
@@ -18,3 +17,4 @@ def index(request):
     return render(request, 'index.html',
                   {'friend_reqs': friend_reqs, 'upcoming_events': upcoming_events,
                    'event_reqs': event_reqs})
+

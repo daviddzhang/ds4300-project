@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load event_extras %}
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'nav.css' %}" xmlns="http://www.w3.org/1999/html"/>
     <link rel="stylesheet" type="text/css" href="{% static 'landing.css' %}"/>
 
 
@@ -24,14 +24,18 @@
                     </thead>
 
                     <tbody>
-                    <tr class="">
-                        {% for key,value in upcoming_events.items %}
+                        {% for event in upcoming_events %}
                             <tr class="">
-                                <td> {{ key}} <br> {{value }} </td>
-
-                            <tr>
+                                <td class="align-items-center text-center">
+                                    <div class="row justify-content-center align-items-center py-2">
+                                        {{event.name}}
+                                        <form class="mr-3" action="{% url 'show' event.id %}">
+                                            <input type="submit" style="margin-left: 50px" class="addBtn" value="View" />
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                         {% endfor %}
-                    <tr>
                     </tbody>
 
                 </table>
@@ -46,13 +50,17 @@
                     </thead>
 
                     <tbody>
-                    {% for key,value in friend_reqs.items %}
+                    {% for friend in friend_reqs %}
                             <tr class="table-title">
-                                <td> {{ key}} {{value }}
-                                    <button  style="margin-left: 50px" type="button" class="addBtn">Add</button>
-
+                                <td class="align-items-center text-center">
+                                    <div class="row justify-content-center align-items-center py-2">
+                                    {{friend.user.first_name}} {{friend.user.last_name}}
+                                    <form class="mr-3" action="{% url 'user_profile' friend.id %}">
+                                        <input type="submit" style="margin-left: 50px" class="addBtn" value="View" />
+                                    </form>
+                                    </div>
                                 </td>
-                            <tr>
+                            </tr>
                     {% endfor %}
 
                     </tbody>
@@ -69,10 +77,17 @@
                     </thead>
 
                     <tbody>
-                        {% for key,value in event_reqs.items %}
+                        {% for event in event_reqs %}
                             <tr class="">
-                                <td> {{ key}} at {{value }} </td>
-                            <tr>
+                                <td class="align-items-center text-center">
+                                    <div class="row justify-content-center align-items-center py-2">
+                                        {{event.name}}
+                                        <form class="mr-3" action="{% url 'show' event.id %}">
+                                            <input type="submit" style="margin-left: 50px" class="addBtn" value="View" />
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                         {% endfor %}
                     </tbody>
 

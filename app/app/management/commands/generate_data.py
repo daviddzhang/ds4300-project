@@ -64,7 +64,7 @@ class Command(BaseCommand):
                 "zip_code": fake.zipcode()
             }
             event = Event(creator=user.profile, name=fake.sentence(nb_words=3), description=fake.sentence(nb_words=7),
-                          date_of_occurrence=fake.date_time_this_year(),
+                          date_of_occurrence=fake.date_time_this_year(after_now=True),
                           categories=random.sample(categories, random.randint(1, len(categories) - 1)),
                           location=location)
             event.save()
@@ -81,9 +81,12 @@ class Command(BaseCommand):
             num_events_to_rate = random.randint(0, 5)
             events = random.sample(all_events, num_events_to_rate)
             for event in events:
+                event.attendees.add(user.profile)
                 rating = random.choice(RATINGS)
                 event.ratings.append({"stars": rating, "user_id": user.profile.id})
                 event.save()
+                user.profile.attending_events.add(event)
+                user.save()
                 user_node = UserNode.nodes.get(mongo_id=user.profile.id)
                 event_node = EventNode.nodes.get(mongo_id=event.id)
                 event_node.attended.connect(user_node, {'rating': int(rating)})
