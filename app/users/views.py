@@ -25,7 +25,6 @@ def profile(request, user_id):
     past_events, upcoming_events = parse_events(attending_events)
     friends = profile.friends.all()
     is_friend = profile in request.user.profile.friends.all()
-    print(f'upcoming_events:{upcoming_events}')
     return render(request, 'users/user_profile.html', {
         'profile': profile,
         'past_events': past_events,
