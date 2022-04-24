@@ -134,5 +134,5 @@ STATICFILES_DIRS = ( os.path.join('static'), )
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/'
-
+# initialize heroku settings
 django_heroku.settings(locals())
