@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from users.models import Profile
+from users.models import Profile, UserNode
 from users.forms import SignupForm
 from django.shortcuts import get_object_or_404, render, redirect
 
@@ -51,6 +51,9 @@ def add(request, user_id):
         user = request.user.profile
         user.friends.add(friend)
         user.save()
+        user_node = UserNode.nodes.get(mongo_id=user.id)
+        friend_node = UserNode.nodes.get(mongo_id=friend.id)
+        user_node.friends.connect(friend_node)
     
     return redirect(request.META.get('HTTP_REFERER'))
 
@@ -61,12 +64,17 @@ def remove(request, user_id):
         user = request.user.profile
         user.friends.remove(friend)
         user.save()
+        user_node = UserNode.nodes.get(mongo_id=user.id)
+        friend_node = UserNode.nodes.get(mongo_id=friend.id)
+        user_node.friends.disconnect(friend_node)
     
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required
 def browse_users(request):
+    search_query = request.GET.get('q', '')
     myuser = request.user
-    users = Profile.objects.all().exclude(user_id = myuser.id)
+    users = Profile.objects.filter(user__username__contains=search_query).exclude(user_id = myuser.id)
     friends = myuser.profile.friends.all()
     
     return render(request, 'users/browse_users.html', {

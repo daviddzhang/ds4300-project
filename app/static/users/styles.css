@@ -6,7 +6,7 @@
     flex-wrap: wrap;
     -ms-flex-align: stretch;
     align-items: stretch;
-    width: 95%;
+    width: 100%;
     margin-left: 50px;
 }
 
@@ -14,17 +14,21 @@
   width: 95%;
 }
 
+.table th {
+    vertical-align: middle;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+
 
 .addBtn {
     background-color: #D75757;
     border: none;
     color: white;
     width:70px;
-}
-
-.landing-tables {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .table-title{

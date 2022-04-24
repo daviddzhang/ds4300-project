@@ -33,7 +33,7 @@ urlpatterns = [
     path('events/', event_views.browse_events, name='browse_events'),
     path('events/new', event_views.new_event, name='new_event'),
     path('events/<int:event_id>/', event_views.show, name='show'),
-    path('events/<int:event_id>/rate', event_views.vote, name='vote'),
+    path('events/<int:event_id>/rate', event_views.rate, name='rate'),
     path('events/<int:event_id>/attend', event_views.attend, name='attend'),
     path('events/<int:event_id>/leave', event_views.leave, name='leave'),
 ]

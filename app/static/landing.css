@@ -1,0 +1,12 @@
+.addBtn {
+    background-color: #D75757;
+    border: none;
+    color: white;
+    width:70px;
+}
+
+tr {
+   line-height: 25px;
+   min-height: 25px;
+   height: 25px;
+}

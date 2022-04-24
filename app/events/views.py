@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from random import sample
-from time import strptime
-from events.models import Event, Address, EVENT_CATEGORIES_MAP
+from events.models import Event, Address, EVENT_CATEGORIES_MAP, EventNode
+from users.models import UserNode
 from events.forms import EventForm
 
 
@@ -31,6 +31,7 @@ def new_event(request):
                           date_of_occurrence=date_of_occurrence, categories=categories, location=location)
             event.save()
             event.refresh_from_db()
+            EventNode(mongo_id=event.id, categories=event.categories, datetime=event.date_of_occurrence).save()
             return redirect("show", event.id)
     else:
         form = EventForm()
@@ -63,10 +64,17 @@ def show(request, event_id):
 
 
 @login_required
-def vote(request, event_id):
+def rate(request, event_id):
+    rating = request.POST.get('rating', None)
+    if rating is None:
+        return HttpResponseBadRequest("Missing rating")
+
     event = get_object_or_404(Event, pk=event_id)
-    event.ratings.append({"stars": request.POST.get('rating', None), "user_id": request.user.profile.id})
+    event.ratings.append({"stars": rating, "user_id": request.user.profile.id})
     event.save()
+    user_node = UserNode.nodes.get(mongo_id=request.user.profile.id)
+    event_node = EventNode.nodes.get(mongo_id=event.id)
+    event_node.attended.connect(user_node, {'rating': int(rating)})
     return HttpResponse(status=204)
 
 
@@ -92,7 +100,9 @@ def leave(request, event_id):
     
     return redirect(request.META.get('HTTP_REFERER'))
 
+@login_required
 def browse_events(request):
-    events = Event.objects.order_by('date_of_occurrence')
+    search_query = request.GET.get('q', '')
+    events = Event.objects.filter(name__contains=search_query).order_by('date_of_occurrence')
     event_data = [(event, request.user.profile in event.attendees.all()) for event in events]
     return render(request, 'events/browse_events.html', {'event_data': event_data})

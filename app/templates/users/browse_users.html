@@ -9,16 +9,17 @@
 
     <h3 class="title">Search by Username</h3>
     <div class="input-group">
-        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-
+        <form action="{% url 'browse_users' %}" method="get">
+            <input name="q" class="form-control rounded" type="text" placeholder="Search...">
+        </form>
     </div>
 
     <table class="table mx-5">
         <tbody>
             {% for profile in users %}
-            <tr>
+            <tr class="align-items-center">
                 <th scope="row">
-                    <a href="{% url 'user_profile' profile.user.id %}"
+                    <a href="{% url 'user_profile' profile.id %}"
                         class="text-decoration-none text-dark">
                     {{ profile }}
                 </th>
@@ -27,10 +28,10 @@
                 <td> Upcoming: {{ profile.upcomingEvent|default:'None' }}</td>
                 <td>Past Events: {{ profile.pastEvent|default:'None' }}</td>
                 <td>{{ profile.bio }}</td>
-                <td class="float-right">
+                <td class="ml-5">
                     {% if profile in friends %}
-                    <form method="POST" 
-                            action="{% url 'remove' profile.user.id %}">
+                    <form class="" method="POST"
+                            action="{% url 'remove' profile.id %}">
                         {% csrf_token %}
                         <button type="submit"
                                 class="btn btn-danger rounded-0 py-1 px-2 my-3">
@@ -39,7 +40,7 @@
                     </form>
                     {% else %}
                         <form method="POST" 
-                                action="{% url 'add' profile.user.id %}">
+                                action="{% url 'add' profile.id %}">
                             {% csrf_token %}
                             <button type="submit" 
                                     class="btn btn-danger rounded-0 py-1 px-2 my-3">
