@@ -81,13 +81,24 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'app',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'app',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djongo',
+            'NAME': 'app',
+            'CLIENT': {
+                'host': 'mongodb+srv://ds4300:ds4300rox@cluster0.xxvtb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+                'authMechanism': 'SCRAM-SHA-1',
+            },
+        }
+    }
 
 
 # Password validation
