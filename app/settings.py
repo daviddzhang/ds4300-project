@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 ]
 
 NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL', 'bolt://neo4j:neo4j@localhost:7687')
+MONGODB_URL = os.environ.get('MONGODB_URL', '')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,7 +95,7 @@ else:
             'ENGINE': 'djongo',
             'NAME': 'app',
             'CLIENT': {
-                'host': 'mongodb+srv://ds4300:ds4300rox@cluster0.xxvtb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+                'host': MONGODB_URL,
                 'authMechanism': 'SCRAM-SHA-1',
             },
         }
