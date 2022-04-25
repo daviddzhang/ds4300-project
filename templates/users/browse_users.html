@@ -16,7 +16,8 @@
 
     <table class="table mx-5">
         <tbody>
-            {% for profile in users %}
+            {% for profile_data in users %}
+            {% with profile=profile_data.0 %}
             <tr class="align-items-center">
                 <th scope="row">
                     <a href="{% url 'user_profile' profile.id %}"
@@ -26,8 +27,8 @@
                 </th>
     
                 <td>{{ profile.user.first_name }} {{ profile.user.last_name }}</td>
-                <td> Upcoming: {{ profile.upcomingEvent|default:'None' }}</td>
-                <td>Past Events: {{ profile.pastEvent|default:'None' }}</td>
+                <td> Upcoming: {{ profile_data.2|default:'None' }}</td>
+                <td>Past Events: {{ profile_data.1|default:'None' }}</td>
                 <td>{{ profile.bio }}</td>
                 <td class="ml-5">
                     {% if profile in friends %}
@@ -51,6 +52,7 @@
                     {% endif %}
                 </td>
             </tr>
+            {% endwith %}
             {% endfor %}
         </tbody>
 

@@ -74,10 +74,16 @@ def browse_users(request):
     search_query = request.GET.get('q', '')
     myuser = request.user
     users = Profile.objects.filter(user__username__contains=search_query).exclude(user_id = myuser.id)
+    users_data = []
+    for user in users:
+        past_events, upcoming_events = parse_events(user.attending_events.all())
+        past_event = past_events[0] if past_events else None
+        upcoming_event = upcoming_events[0] if upcoming_events else None
+        users_data.append((user, past_event, upcoming_event))
     friends = myuser.profile.friends.all()
     
     return render(request, 'users/browse_users.html', {
-        'users': users,
+        'users': users_data,
         'friends': friends,
     })
 
